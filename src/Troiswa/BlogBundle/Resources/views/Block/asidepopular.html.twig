@@ -1,0 +1,16 @@
+<h4>Popular Articles</h4>
+<div class="row">
+    <div class="col-lg-6">
+
+        {% for article in popularArticles %}
+
+            <ul class="list-unstyled">
+
+                <li><a href="{{ path('troiswa_blog_showarticle_article', {'id':article.id} ) }}">{{ article.title }}</a></li>
+
+            </ul>
+
+        {% endfor %}
+
+    </div>
+</div>

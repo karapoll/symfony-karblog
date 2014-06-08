@@ -1,0 +1,3 @@
+troiswa_blog_category:
+    pattern:  /category/{id}
+    defaults: { _controller: TroiswaBlogBundle:Category:show }

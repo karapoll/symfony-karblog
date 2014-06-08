@@ -1,0 +1,37 @@
+{%  extends 'TroiswaBlogBundle::layout.html.twig' %}
+
+{% block content %}
+    <!-- the comment box -->
+    <div class="well">
+        <h1>Create a user</h1>
+        <br>
+
+        {{ form_start(formUser,{'method':'POST','role':'form'}) }}
+        <div class="form-group">
+            {{ form_label(formUser.username) }}
+            {{ form_widget(formUser.username,{'id':'username','attr': {'placeholder':'username', 'class':'form-control'}} )}}
+            {{ form_errors(formUser.username) }}
+            <br>
+
+            {{ form_label(formUser.password.first) }}
+            {{ form_widget(formUser.password.first,{'id':'password','attr': {'placeholder':'******', 'class':'form-control'}} )}}
+            {{ form_errors(formUser.password.first) }}
+            <br>
+
+            {{ form_label(formUser.password.second) }}
+            {{ form_widget(formUser.password.second,{'id':'password','attr': {'placeholder':'******', 'class':'form-control'}} )}}
+            {{ form_errors(formUser.password.second) }}
+            <br>
+        </div>
+
+        {{ form_widget(formUser.Submit,{'attr': {'class':'btn btn-primary'}} )}}
+
+        {{ form_end(formUser) }}
+    </div>
+
+    {% for flash in app.session.flashbag.get('notice') %}
+        <p class="alert alert-session">{{ flash }}</p>
+    {%  endfor %}
+
+    <hr>
+{% endblock %}

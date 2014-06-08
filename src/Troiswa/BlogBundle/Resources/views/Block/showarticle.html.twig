@@ -1,0 +1,103 @@
+{% extends 'TroiswaBlogBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <h1>{{ theArticle.title }}</h1>
+
+    <p><span class="glyphicon glyphicon-time"></span> Posted on {{ theArticle.dateCreation|date('Y-m-d') }} by {{ theArticle.author }}</p>
+
+    <p><strong>Categories</strong></p>
+    <div class=''>
+        {% for category in theArticle.category %}
+            <p>{{ category.title ~ ' ' }}</p><br>
+        {% endfor %}
+    </div>
+
+    <img src="http://placehold.it/900x300" class="img-responsive"><br>
+    <p>{{ theArticle.content }}</p><br>
+
+    {#<p><strong>Placeholder text by:</strong></p>
+    <ul>
+        <li><a href="http://spaceipsum.com/">Space Ipsum</a></li>
+        <li><a href="http://cupcakeipsum.com/">Cupcake Ipsum</a></li>
+        <li><a href="http://tunaipsum.com/">Tuna Ipsum</a></li>
+    </ul>#}
+
+    <!-- the comment box -->
+    <div class="well">
+        <h3>Comment</h3>
+
+        {#
+        <form role="form">
+            <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {{ form(formCom) }}
+        #}
+
+        {{ form_start(formCom,{'method':'POST','class':'form-group'}) }}
+
+
+            {{ form_label(formCom.author, 'Name' , {'label_attr' : {'class' : ''} } ) }}
+            {{ form_widget(formCom.author, {'attr': {'placeholder':'Name', 'class':'form-control'} } ) }}
+            {{ form_errors(formCom.author, {'attr': {'class':'form-control'} } ) }}
+            <br>
+
+
+            {{ form_label(formCom.content, null, {'label_attr': {'class':''} } ) }}
+            {{ form_widget(formCom.content, {'attr': {'placeholder':'Content', 'class':'form-control'} } ) }}
+            {{ form_errors(formCom.content, {'attr': {'class':'form-control'} } ) }}
+            <br>
+
+
+            {#
+            {{ form_label(formCom.rate, null, {'label_attr': {'class':''} } ) }}
+
+            {{ form_widget(formCom.rate, {'attr': {'placeholder':'rate', 'class':'form-control'} } ) }}
+            {{ form_errors(formCom.rate, {'attr': {'class':'form-control'} } ) }}
+        #}
+
+            <div class=''>
+                {% for comment in theArticle.comments %}
+
+                    <p>{{ comment.dateCreation|date('Y-m-d') }}</p><br>
+                    <p>{{ comment.author }}</p><br>
+                    <p>{{ comment.content }}</p><br>
+
+                {% else %}
+                    <p>Be the first one to leave a comment!</p>
+
+                {% endfor %}
+            </div>
+
+            <div id="stars"></div>
+            <br>
+
+            {{ form_widget(formCom.submit, {'attr': {'class':'btn btn-primary'} } ) }}
+
+        {{ form_end(formCom) }}
+
+        {% for flash in app.session.flashbag.get('notice') %}
+            <p class = 'alert alert.success'>{{ flash }}</p>
+        {% endfor %}
+
+    </div>
+
+    <hr>
+
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    {% javascripts '@TroiswaBlogBundle/Resources/public/js/jquery.raty.js' %}
+        <script type="text/javascript" src = '{{ asset_url }}'></script>
+    {% endjavascripts %}
+        <script>
+            // $('#stars').raty({ path: '../../images' });
+            $('#stars').raty({ path: '{{ app.request.getBasePath() }}/images' });
+        </script>
+{% endblock %}

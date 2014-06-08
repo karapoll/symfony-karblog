@@ -1,0 +1,59 @@
+{%  extends 'TroiswaBlogBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <!-- the comment box -->
+    <div class="well">
+        <h1>Edit an Article</h1>
+        {{ form_start(formArt,{'method':'POST','role':'form'}) }}
+
+        <div class="form-group">
+            {{ form_label(formArt.author) }}
+            {{ form_widget(formArt.author,{'id':'author','attr': {'placeholder':'Author', 'class':'form-control'}} )}}
+            {{ form_errors(formArt.author) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(formArt.title) }}
+            {{ form_widget(formArt.title,{'id':'author','attr': {'placeholder':'Title', 'class':'form-control'}} )}}
+            {{ form_errors(formArt.title) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(formArt.content) }}
+            {{ form_widget(formArt.content,{'id':'content','attr': {'placeholder':'Content', 'class':'form-control'}} )}}
+            {{ form_errors(formArt.content) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(formArt.category, 'Category') }}
+            {{ form_widget(formArt.category, {'attr': {'class':'category'} } ) }}
+            {{ form_errors(formArt.category) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(formArt.cover, 'Popularity') }}
+            {{ form_widget(formArt.cover, {'attr': {'class':'cover'} } ) }}
+            {{ form_errors(formArt.cover) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_widget(formArt.submit,{'attr': {'class':'btn btn-primary'}} )}}
+            {{ form_end(formArt) }}
+        </div>
+
+    </div>
+
+    {% for flash in app.session.flashbag.get('notice') %}
+        <p class="alert alert-session">{{ flash }}</p>
+    {%  endfor %}
+
+    <hr>
+    <!-- the article -->
+    <h3>{{ article.title }}
+        <small>Posted on {{ article.dateCreation|date('Y-m-d') }} by {{ article.author }}</small>
+    </h3>
+    <p>{{ article.content }}</p>
+
+
+{% endblock %}

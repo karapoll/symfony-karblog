@@ -1,0 +1,21 @@
+troiswa_blog_create_article:
+    pattern:  /create_article
+    defaults: { _controller: TroiswaBlogBundle:Article:create }
+
+troiswa_blog_showarticle_article:
+    pattern:  /article/{id}
+    defaults: { _controller: TroiswaBlogBundle:Article:show }
+
+troiswa_blog_remove_article:
+    pattern:  /remove_article/{id}
+    defaults: { _controller: TroiswaBlogBundle:Article:remove }
+
+troiswa_blog_edit_article:
+    pattern:  /edit_article/{id}
+    defaults: { _controller: TroiswaBlogBundle:Article:edit }
+
+troiswa_blog_savecom_article:
+    pattern:  /savecom_article/{id}
+    defaults: { _controller: TroiswaBlogBundle:Article:savecom }
+    requirements:
+      _method: POST

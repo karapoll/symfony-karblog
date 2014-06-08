@@ -1,0 +1,48 @@
+{% extends 'TroiswaBlogBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <h3>There is {{ count }} articles on this blog</h3>
+
+    <hr>
+
+    {% for flash in app.session.flashbag.get('notice') %}
+        <p class="alert alert-session">{{ flash }}</p>
+    {%  endfor %}
+
+    {% for article in articles %}
+
+        <h1>{{ article.title }}</h1>
+
+        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.dateCreation|date('Y-m-d') }} by {{ article.author }}</p>
+
+        <p><strong>Categories</strong></p>
+        <div class=''>
+            {% for category in article.category %}
+                <p>{{ category.title ~ ' ' }}</p>
+            {% endfor %}
+        </div>
+
+        <img src="http://placehold.it/900x300" class="img-responsive"><br>
+
+        <p>{{ article.content }}</p>
+
+        <a class="btn btn-primary" href="{{ path('troiswa_blog_showarticle_article',{'id':article.id}) }}">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
+
+        <a class="btn btn-primary" href="{{ path('troiswa_blog_edit_article',{'id':article.id}) }}">Edit<span class="glyphicon glyphicon-chevron-right"></span></a>
+
+        <a class="btn btn-primary" href="{{ path('troiswa_blog_remove_article',{'id':article.id}) }}">Remove<span class="glyphicon glyphicon-chevron-right"></span></a>
+
+        <hr>
+
+        {#{% for comment in article.comments %}
+            {{ comment.author }}
+        {% else %}
+            <br>
+            <p>Be the first one to leave a comment</p>
+
+        {% endfor %}#}
+
+    {% endfor %}
+
+{% endblock %}

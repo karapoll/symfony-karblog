@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        {% block stylesheet %}
+        <!-- Latest compiled and minified CSS -->
+        <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//startbootstrap.com/templates/css/blog-home.css"> -->
+
+        {% stylesheets 'bundles/troiswablog/css/*' filter='cssrewrite '%}
+            <link rel="stylesheet" href = '{{ asset_url }}'>
+        {% endstylesheets %}
+
+        {% endblock %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+
+    <body>
+
+        {% block body %}
+        {% endblock %}
+
+        {% block javascript %}
+
+            {% javascripts
+            '@TroiswaBlogBundle/Resources/public/js/jquery.js'
+            '@TroiswaBlogBundle/Resources/public/js/*'
+            %}
+
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+
+            {% endjavascripts %}
+
+        {% endblock %}
+
+    </body>
+
+</html>

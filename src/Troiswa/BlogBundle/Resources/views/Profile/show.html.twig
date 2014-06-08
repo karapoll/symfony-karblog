@@ -1,0 +1,10 @@
+{% extends 'TroiswaBlogBundle::layout.html.twig' %}
+
+{% block content %}
+
+    {% block fos_user_content %}
+        {% include "TroiswaBlogBundle:Profile:show_content.html.twig" %}
+    {% endblock fos_user_content %}
+
+{% endblock content %}
+

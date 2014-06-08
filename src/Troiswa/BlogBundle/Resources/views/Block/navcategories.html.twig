@@ -1,0 +1,5 @@
+<ul class="dropdown-menu">
+    {% for category in navcategory %}
+        <li><a href="{{ path ('troiswa_blog_category', {'id':category.id} ) }}">{{ category.title }}</a></li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,50 @@
+{#
+&#123;&#35; TroiswaBlogBundle/Resources/views/Security/login.html.twig &#35;&#125;
+
+{% extends 'TroiswaBlogBundle::layout.html.twig' %}
+
+{% if error %}
+    <div class="well">{{ error.message }}</div>
+{% endif %}
+
+<form class="well" action="{{ path('fos_user_security_check') }}" method="post">
+    <label for="username">Login</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" /><br>
+
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="_password" /><br>
+
+    &#123;&#35;
+        Si vous voulez contrôler l'URL vers laquelle l'utilisateur est redirigé en cas de succès
+        (plus de détails ci-dessous)
+        <input type="hidden" name="_target_path" value="/account" />
+    &#35;&#125;
+
+    <button class="btn btn-primary" type="submit">login</button>
+</form>#}
+
+
+{% extends "TroiswaBlogBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block content %}
+    {% if error %}
+        <div>{{ error|trans }}</div>
+    {% endif %}
+
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <label for="username">{{ 'security.login.username'|trans }}</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+        <label for="password">{{ 'security.login.password'|trans }}</label>
+        <input type="password" id="password" name="_password" required="required" />
+
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    </form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'TroiswaBlogBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <div class="well">
+        <h3>Articles</h3>
+
+        <div class="form-group">
+            {{ form_start(formArt,{'method':'POST','class':'form-group'}) }}
+            {{ form_label(formArt.author, 'Author' , {'label_attr' : {'class' : ''} } ) }}
+            {{ form_widget(formArt.author, {'attr': {'placeholder':'Author', 'class':'form-control'} } ) }}
+            {{ form_errors(formArt.author) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_start(formArt,{'method':'POST','class':'form-group'}) }}
+            {{ form_label(formArt.title, 'Title' , {'label_attr' : {'class' : ''} } ) }}
+            {{ form_widget(formArt.title, {'attr': {'placeholder':'Title', 'class':'form-control'} } ) }}
+            {{ form_errors(formArt.title) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(formArt.content, null, {'label_attr': {'class':''} } ) }}
+            {{ form_widget(formArt.content, {'attr': {'placeholder':'Content', 'class':'form-control'} } ) }}
+            {{ form_errors(formArt.content) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(formArt.category, 'Category') }}
+            {{ form_widget(formArt.category, {'attr': {'class':'category'} } ) }}
+            {{ form_errors(formArt.category) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(formArt.cover, 'Popularity') }}
+            {{ form_widget(formArt.cover, {'attr': {'class':'cover'} } ) }}
+            {{ form_errors(formArt.cover) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_widget(formArt.submit, {'attr': {'class':'btn btn-primary'} } ) }}
+
+            {{ form_end(formArt) }}
+        </div>
+
+    </div>
+
+    {# affiche success #}
+        {% for flash in app.session.flashbag.get('notice') %}
+            <p class = 'alert alert.success'>{{ flash }}</p>
+        {% endfor %}
+
+        <div class=''>
+            {% for article in articles %}
+
+                <p>{{ article.dateCreation|date('Y-m-d') }}</p><br>
+                <p>{{ article.title }}</p><br>
+                <p>{{ article.content }}</p><br>
+                <hr>
+
+            {% endfor %}
+        </div>
+
+{% endblock %}
